@@ -7,4 +7,6 @@ requests, xlsxwriter
 simple usage:
 python3 moocGet.py [step] [start] [end]
 
+e.g. python3 moocGet.py 5000 200000 210000
+
 KEEP IT.

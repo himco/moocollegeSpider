@@ -5,7 +5,7 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 # 连接数据库
-db = MySQLdb.connect("yhsm88.cn", "mooc", "mooc", "mooc")
+db = MySQLdb.connect("***", "***", "***", "***")
 
 
 @app.route('/get')

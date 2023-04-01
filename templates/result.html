@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+
+<table border="1">
+    <tr>
+        <th>id</th>
+        <th>作品号</th>
+        <th>作品名称</th>
+        <th>创建时间</th>
+        <th>竞赛编号</th>
+        <th>类型</th>
+        <th>领队</th>
+        <th>学校</th>
+        <th>材料1</th>
+        <th>材料2</th>
+        <th>材料3</th>
+        <th>材料4</th>
+
+    </tr>
+    {% for ii in backdata %}
+    <tr>
+        <td>{{ ii[0] }}</td>
+        <td>{{ ii[1] }}</td>
+        <td width="50">{{ ii[2] }}</td>
+        <td>{{ ii[3] }}</td>
+        <td>{{ ii[4] }}</td>
+        <td>{{ ii[5] }}</td>
+        <td>{{ ii[6] }}</td>
+        <td>{{ ii[7] }}</td>
+        <td class="jsContainer" style="max-width:400px">{{ ii[8] }}</td>
+        <td class="jsContainer" style="max-width:400px">{{ ii[9] }}</td>
+        <td class="jsContainer" style="max-width:400px">{{ ii[10] }}</td>
+        <td class="jsContainer" style="max-width:400px">{{ ii[11] }}</td>
+
+
+    </tr>
+    {% endfor %}
+</table>
+
+
+</body>
+
+<script type="text/javascript">
+    var containers = document.getElementsByClassName("jsContainer");
+    for (var i = 0; i < containers.length; i++) {
+        var inner = containers[i].innerHTML;
+
+        var startIdx = inner.indexOf(":[{");
+
+        if (startIdx !== -1) {
+            inner = inner.substring(startIdx + 1, inner.length).replaceAll("\'", "\"");
+            containers[i].innerHTML = inner
+
+            try {
+                jsonText = JSON.parse(containers[i].innerHTML)
+
+                for (var j = 0; j < jsonText.length; j++) {
+
+                    if (jsonText[j].type != 3) {
+
+                        var result = "<a href=\"" + jsonText[j].url + "\">" + jsonText[j].name + "</a>";
+
+                    } else {
+                        var result = "<img style='max-width: 200px;max-height: 200px;' src=\"" + jsonText[j].url + "\"/>"
+                    }
+
+                    // jsonText[j].type
+
+
+                    /*
+                    * name
+                    * type 1:PDF 2:视频 3:图片 4:none 5:zip
+                    * url
+                    * */
+
+                    console.log()
+
+                    containers[i].innerHTML = result
+                }
+
+
+            } catch (e) {
+                // console.log(e)
+            }
+        }
+
+
+    }
+
+    // var reg = /(http:\/\/|https:\/\/)*((\w|=|\?|\.|\/|&|-)+)/g;
+    // var result = text.replace(reg, '<a target="_blank" href="$1$2">$1$2</a>')
+    // container.innerHTML = result
+    // var links = document.getElementsByTagName("a")
+    // for (var i = 0; i < links.length; i++) {
+    //     var href = links[i].getAttribute("href")
+    //     if (!/^http/.test(href)) {
+    //         links[i].setAttribute("href", "http://" + href)
+    //     }
+    // }
+</script>
+</html>
